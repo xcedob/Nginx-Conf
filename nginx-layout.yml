@@ -1,0 +1,6 @@
+- name: nginx-layout conf
+  hosts: test
+  roles:
+    - nginx-config-layout
+  become: yes
+  gather_facts: yes

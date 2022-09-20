@@ -1,0 +1,18 @@
+- name: Replace nginx configs
+  template: 
+    src: your.conf
+    dest: /etc/nginx/default.d/your.conf
+    mode: 0644
+
+- name: Test nginx configurations
+  shell: |
+    nginx -t
+  register: nginx_status
+
+- name: Reload nginx
+  systemd:
+    name: nginx
+    state: reloaded
+  when: '"test is successful" in nginx_status.stderr or "test is successful" in nginx_status.stdout' 
+
+
